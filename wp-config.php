@@ -32,20 +32,20 @@ if ((bool)(strpos($_SERVER['SERVER_NAME'], 'wliondev.com') !== FALSE)) {
  * Setup Database Credentials
  */
 if (IS_DEV) {
-	define('DB_NAME', 'database_name_here');
-	define('DB_USER', 'username_here');
-	define('DB_PASSWORD', 'password_here');
+	define('DB_NAME', '');
+	define('DB_USER', 'wlion');
+	define('DB_PASSWORD', 'R0@r!!');
 	define('DB_HOST', 'localhost');
 } elseif (IS_STAGING) {
-	define('DB_NAME', 'database_name_here');
-	define('DB_USER', 'username_here');
-	define('DB_PASSWORD', 'password_here');
-	define('DB_HOST', 'localhost');
+	define('DB_NAME', '');
+	define('DB_USER', '');
+	define('DB_PASSWORD', '');
+	define('DB_HOST', '');
 } else {
-	define('DB_NAME', 'database_name_here');
-	define('DB_USER', 'username_here');
-	define('DB_PASSWORD', 'password_here');
-	define('DB_HOST', 'localhost');
+	define('DB_NAME', '');
+	define('DB_USER', '');
+	define('DB_PASSWORD', '');
+	define('DB_HOST', '');
 }
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
@@ -78,7 +78,7 @@ define('NONCE_SALT',       'put your unique phrase here');
  * You can have multiple installations in one database if you give each a unique
  * prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix  = 'wp_';
+$table_prefix  = 'wl_';
 
 /**
  * WordPress Localized Language, defaults to English.
@@ -91,6 +91,33 @@ $table_prefix  = 'wp_';
 define('WPLANG', '');
 
 /**
+ * Set default paths because of the GIT integration
+ */
+define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wordpress');
+define('WP_HOME',    'http://' . $_SERVER['SERVER_NAME']);
+define('WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/content');
+define('WP_CONTENT_URL', 'http://' . $_SERVER['SERVER_NAME'] . '/content');
+
+/**
+ * Disable external requests
+ *
+ * This is so that users dont see update requests since things are managed through git
+ */
+define('WP_HTTP_BLOCK_EXTERNAL', true);
+
+/**
+ * Disable theme and plugin editing/instalation in the admin
+ */
+define('DISALLOW_FILE_MODS',true);
+define('DISALLOW_FILE_EDIT',true);
+
+/**
+ * Force SSL on login and admin pages
+ */
+define('FORCE_SSL_LOGIN', true);
+define('FORCE_SSL_ADMIN', true);
+
+/**
  * For developers: WordPress debugging mode.
  *
  * Change this to true to enable the display of notices during development.
@@ -98,7 +125,12 @@ define('WPLANG', '');
  * in their development environments.
  */
 define('WP_DEBUG', IS_DEV);
-
+if (WP_DEBUG) {
+	define('WP_DEBUG_LOG', true);
+	define('WP_DEBUG_DISPLAY', false);
+	@ini_set('display_errors',0);
+	define('SAVEQUERIES', true);
+}
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
