@@ -33,9 +33,9 @@ if ((bool)(strpos($_SERVER['SERVER_NAME'], 'wliondev.com') !== FALSE)) {
  */
 if (IS_DEV) {
 	define('DB_NAME', '');
-	define('DB_USER', 'wlion');
-	define('DB_PASSWORD', 'R0@r!!');
-	define('DB_HOST', 'localhost');
+	define('DB_USER', '');
+	define('DB_PASSWORD', '');
+	define('DB_HOST', '');
 } elseif (IS_STAGING) {
 	define('DB_NAME', '');
 	define('DB_USER', '');
